@@ -1,5 +1,5 @@
 from enum import Enum
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from datetime import datetime
 import json
@@ -10,7 +10,7 @@ tasks_file = "tasks.json"
 
 class TaskStatus(str, Enum):
     TODO = "todo"
-    IN_PROGRESS = "in progress"
+    IN_PROGRESS = "in-progress"
     DONE = "done"
 
 class TaskCreate(BaseModel):
@@ -59,4 +59,20 @@ async def create_task(task: TaskCreate):
     save_tasks(tasks)
     return new_task
 
+@app.put("/tasks/{task_id}", response_model=Task)
+async def update_task(task_id: int, task_update: TaskCreate, status: TaskStatus = None):
+    tasks = load_tasks()
+    task_to_update = None
+    for task in tasks:
+        if task["id"] == task_id:
+            task_to_update = task
+            break
+    if not task_to_update:
+        raise HTTPException(status_code=404, detail="Task not found")
+    task_to_update["description"] = task_update.description
+    if status:
+        task_to_update["status"] = status.value
+    task_to_update["updated_at"] = datetime.now().isoformat()
+    save_tasks(tasks)
+    return task_to_update
 
