@@ -36,12 +36,14 @@ def save_tasks(tasks: list[dict]):
     with open(tasks_file, "w", encoding="utf-8") as f:
         json.dump(tasks, f, indent=2, ensure_ascii=False, default=str)
 
+
 @app.get("/tasks/", response_model=list[Task])
 async def get_tasks(status: TaskStatus = None):
     tasks = load_tasks()
     if status:
         tasks = [task for task in tasks if task["status"] == status.value]
     return tasks
+
 
 @app.post("/tasks/", response_model=Task)
 async def create_task(task: TaskCreate):
@@ -59,6 +61,7 @@ async def create_task(task: TaskCreate):
     save_tasks(tasks)
     return new_task
 
+
 @app.put("/tasks/{task_id}", response_model=Task)
 async def update_task(task_id: int, task_update: TaskCreate, status: TaskStatus = None):
     tasks = load_tasks()
@@ -75,4 +78,18 @@ async def update_task(task_id: int, task_update: TaskCreate, status: TaskStatus 
     task_to_update["updated_at"] = datetime.now().isoformat()
     save_tasks(tasks)
     return task_to_update
+
+
+@app.delete("/tasks/{task_id}", response_model=dict)
+async def delete_task(task_id: int):
+    tasks = load_tasks()
+    task_to_delete = None
+    for i, task in enumerate(tasks):
+        if task["id"] == task_id:
+            task_to_delete = tasks.pop(i)
+            break
+    if not task_to_delete:
+        raise HTTPException(status_code=404, detail="Task not found")
+    save_tasks(tasks)
+    return {"message": "Task deleted successfully", "deleted_task": task_to_delete}
 
