@@ -1,16 +1,30 @@
 [
   {
     "id": 1,
-    "description": "buy eggs",
-    "status": "todo",
-    "created_at": "2025-05-15T02:47:35.121705",
-    "updated_at": "2025-05-15T02:47:35.121705"
+    "description": "buy kirieshki",
+    "status": "done",
+    "created_at": "2025-05-15 02:47:35.121705",
+    "updated_at": "2025-05-15 17:28:12.143932"
   },
   {
     "id": 2,
     "description": "buy cigs",
+    "status": "todo",
+    "created_at": "2025-05-15 16:36:58.566735",
+    "updated_at": "2025-05-15 18:29:31.505259"
+  },
+  {
+    "id": 3,
+    "description": "buy beer",
     "status": "in-progress",
-    "created_at": "2025-05-15T02:47:44.974400",
-    "updated_at": "2025-05-15T03:08:01.169359"
+    "created_at": "2025-05-15 18:29:42.261046",
+    "updated_at": "2025-05-15 18:29:42.261046"
+  },
+  {
+    "id": 4,
+    "description": "string",
+    "status": "todo",
+    "created_at": "2025-05-15 19:36:18.107409",
+    "updated_at": "2025-05-15 19:36:18.107409"
   }
 ]
