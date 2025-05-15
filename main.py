@@ -37,7 +37,7 @@ def save_tasks(tasks: list[dict]):
         json.dump(tasks, f, indent=2, ensure_ascii=False, default=str)
 
 
-@app.get("/tasks/", response_model=list[Task])
+@app.get("/tasks/", response_model=list[dict])
 async def get_tasks(status: TaskStatus = None):
     tasks = load_tasks()
     if status:
@@ -45,7 +45,7 @@ async def get_tasks(status: TaskStatus = None):
     return tasks
 
 
-@app.post("/tasks/", response_model=Task)
+@app.post("/tasks/", response_model=dict)
 async def create_task(task: TaskCreate):
     tasks = load_tasks()
     new_id = max([task.get("id", 0) for task in tasks], default=0) + 1
@@ -62,7 +62,7 @@ async def create_task(task: TaskCreate):
     return new_task
 
 
-@app.put("/tasks/{task_id}", response_model=Task)
+@app.put("/tasks/{task_id}", response_model=dict)
 async def update_task(task_id: int, task_update: TaskCreate, status: TaskStatus = None):
     tasks = load_tasks()
     task_to_update = None
@@ -94,7 +94,7 @@ async def delete_task(task_id: int):
     return {"message": "Task deleted successfully", "deleted_task": task_to_delete}
 
 
-@app.patch("/tasks/{task_id}/status", response_model=Task)
+@app.patch("/tasks/{task_id}/status", response_model=dict)
 async def update_task_status(task_id: int, status: TaskStatus):
     tasks = load_tasks()
     task_to_update = None
