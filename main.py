@@ -93,3 +93,19 @@ async def delete_task(task_id: int):
     save_tasks(tasks)
     return {"message": "Task deleted successfully", "deleted_task": task_to_delete}
 
+
+@app.patch("/tasks/{task_id}/status", response_model=Task)
+async def update_task_status(task_id: int, status: TaskStatus):
+    tasks = load_tasks()
+    task_to_update = None
+    for task in tasks:
+        if task["id"] == task_id:
+            task_to_update = task
+            break
+    if not task_to_update:
+        raise HTTPException(status_code=404, detail="Task not found")
+    task_to_update["status"] = status.value
+    task_to_update["updated_at"] = datetime.now().isoformat()
+    save_tasks(tasks)
+    return task_to_update
+
