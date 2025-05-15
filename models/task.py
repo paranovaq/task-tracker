@@ -14,8 +14,3 @@ class Task(BaseModel):
     created_at: datetime
     updated_at: datetime
 
-class TaskCreate(BaseModel):
-    description: str
-
-class TaskUpdate(BaseModel):
-    description: str

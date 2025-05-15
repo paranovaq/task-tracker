@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from models.task import Task, TaskCreate, TaskUpdate, TaskStatus
+from models.task import Task, TaskStatus
 from services import task_service
 
 
@@ -9,14 +9,15 @@ router = APIRouter()
 def read_tasks(status: TaskStatus = None):
     return task_service.get_tasks(status)
 
-@router.post("/tasks/", response_model=Task)
-def create_task(task_data: TaskCreate):
-    return task_service.create_task(task_data)
+@router.post("/tasks/{task_name}", response_model=Task)
+def create_task(task_name: str):
+    return task_service.create_task(task_name)
+
 
 @router.put("/tasks/{task_id}", response_model=Task)
-def update_task(task_id: int, task_data: TaskUpdate, status: TaskStatus):
+def update_task(task_id: int, task_name: str, status: TaskStatus):
     try:
-        return task_service.update_task(task_id, task_data, status)
+        return task_service.update_task(task_id, task_name, status)
     except ValueError:
         raise HTTPException(status_code=404, detail="Task not found")
 
@@ -27,7 +28,7 @@ def delete_task(task_id: int):
         raise HTTPException(status_code=404, detail="Task not found")
     return {"message": "Task deleted successfully"}
 
-@router.patch("/tasks/{task_id}/status", response_model=Task)
+@router.patch("/tasks/{task_id}", response_model=Task)
 def change_status(task_id: int, status: TaskStatus):
     try:
         return task_service.change_task_status(task_id, status)

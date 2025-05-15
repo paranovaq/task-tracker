@@ -1,30 +1,23 @@
 [
   {
     "id": 1,
-    "description": "buy kirieshki",
-    "status": "done",
-    "created_at": "2025-05-15 02:47:35.121705",
-    "updated_at": "2025-05-15 17:28:12.143932"
+    "description": "buy cigs",
+    "status": "in-progress",
+    "created_at": "2025-05-15 16:36:58.566735",
+    "updated_at": "2025-05-16 00:43:55.755792"
   },
   {
     "id": 2,
-    "description": "buy cigs",
-    "status": "todo",
-    "created_at": "2025-05-15 16:36:58.566735",
-    "updated_at": "2025-05-15 18:29:31.505259"
+    "description": "buy chocolate",
+    "status": "done",
+    "created_at": "2025-05-15 18:29:42.261046",
+    "updated_at": "2025-05-15 22:50:37.308355"
   },
   {
     "id": 3,
-    "description": "buy beer",
-    "status": "in-progress",
-    "created_at": "2025-05-15 18:29:42.261046",
-    "updated_at": "2025-05-15 18:29:42.261046"
-  },
-  {
-    "id": 4,
-    "description": "string",
+    "description": "buy kirieshki",
     "status": "todo",
-    "created_at": "2025-05-15 19:36:18.107409",
-    "updated_at": "2025-05-15 19:36:18.107409"
+    "created_at": "2025-05-16 00:44:15.859780",
+    "updated_at": "2025-05-16 01:01:41.526328"
   }
 ]
